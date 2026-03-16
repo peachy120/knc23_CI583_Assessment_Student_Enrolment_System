@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/CI583/CI583.iml" filepath="$PROJECT_DIR$/CI583/CI583.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/knc23_CI583_Assessment_Student_Enrolment_System.iml" filepath="$PROJECT_DIR$/.idea/knc23_CI583_Assessment_Student_Enrolment_System.iml" />
     </modules>
   </component>
