@@ -1,9 +1,11 @@
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,9 +38,12 @@ public class controller {
                     input newInput = new input(processID, burstTime, priority);
                     inputManage.addToWaitingQueue(newInput);
 
+                    //System.out.println(newInput);
+
                 }
 
-                //System.out.println(inputManage.waitingQueue);
+                //System.out.println(inputManage.getWaitingQueue());
+                //System.out.println(inputManage.getNoOfElements());
 
             } catch (IOException e) {
                 view.msgJLabel.setText("404 ERROR 404");
@@ -57,26 +62,29 @@ public class controller {
 
         String schedulingMethod = "You selected: " + selectedScheduling;
 
-        List<input> queue = inputManage.waitingQueue;
+        List<input> queue = inputManage.getWaitingQueue();
 
         if (!queue.isEmpty() && selectedScheduling == view.schedulingOptions[0]) {
             view.schedulingSelectedJLabel.setText(schedulingMethod);
 
+            System.out.println("You selected " + selectedScheduling);
+
             model.roundRobin(queue);
 
-            System.out.println("You selected " + selectedScheduling);
+            System.out.println(inputManage.getWaitingQueue());
+            System.out.println(model.getCompletedQueue());
         } else if (!queue.isEmpty() && selectedScheduling == view.schedulingOptions[1]) {
             view.schedulingSelectedJLabel.setText(schedulingMethod);
 
-            model.priority(queue);
-
             System.out.println("You selected " + selectedScheduling);
+
+            model.priority(queue);
         } else if (!queue.isEmpty() && selectedScheduling == view.schedulingOptions[2]) {
             view.schedulingSelectedJLabel.setText(schedulingMethod);
 
-            model.mlfq(queue);
-
             System.out.println("You selected " + selectedScheduling);
+
+            model.mlfq(queue);
         } else {
             view.schedulingSelectedJLabel.setText("Upload a CSV file");
 

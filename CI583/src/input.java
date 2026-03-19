@@ -1,27 +1,27 @@
-public class input {
+public class input extends Thread{
 
-    private static String processID;
-    private static int burstTime;
-    private static int priority;
+    private String processID;
+    private int burstTime;
+    private int processPriority;
 
     // Constructor
-    public input(String processID, int burstTime, int priority) {
+    public input(String processID, int burstTime, int processPriority) {
         this.processID = processID;
         this.burstTime = burstTime;
-        this.priority = priority;
+        this.processPriority = processPriority;
     }
 
     // Getters
-    public static String getProcessID() {
+    public String getProcessID() {
         return processID;
     }
 
-    public static int getBurstTime() {
+    public int getBurstTime() {
         return burstTime;
     }
 
-    public static int getPriority() {
-        return priority;
+    public int getProcessPriority() {
+        return processPriority;
     }
 
     // Setters
@@ -33,11 +33,11 @@ public class input {
         this.burstTime = burstTime;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
+    public void setProcessPriority(int processPriority) {
+        this.processPriority = processPriority;
     }
 
     public String toString() {
-        return "Process ID: " + processID + " Burst Time: " + burstTime + " Priority: " + priority;
+        return "Process ID: " + processID + " Burst Time: " + burstTime + " Priority: " + processPriority;
     }
 }

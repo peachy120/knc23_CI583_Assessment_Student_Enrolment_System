@@ -1,26 +1,39 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class inputManage {
+public abstract class inputManage extends Thread{
 
-    static List<input> waitingQueue = new ArrayList<>();
+    private static List<input> waitingQueue = new ArrayList<>();
+    private static int noOfElements;
 
     // Constructor
-    public inputManage() {
-
+    public inputManage(int max) {
+        waitingQueue = new ArrayList<>(max);
+        noOfElements = 0;
     }
 
-//    // Getter
-//    public static List<String[]> getWaitingQueue() {
-//        return waitingQueue;
-//    }
-//
-//    // Setter
-//    public static void setWaitingQueue(List<String[]> waitingQueue) {
-//        inputManage.waitingQueue = waitingQueue;
-//    }
+    // Getter
+    public static List<input> getWaitingQueue() {
+        return waitingQueue;
+    }
+
+    public static int getNoOfElements() {
+        return noOfElements;
+    }
+
+    // Setter
+    public static void setWaitingQueue(List<input> waitingQueue) {
+        inputManage.waitingQueue = waitingQueue;
+    }
+
+    public void setNoOfElements(int noOfElements) {
+        this.noOfElements = noOfElements;
+    }
 
     public static void addToWaitingQueue(input value) {
         waitingQueue.add(value);
+        //System.out.println(value);
+        noOfElements++;
+        //System.out.println(noOfElements);
     }
 }
