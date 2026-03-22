@@ -60,6 +60,8 @@ public class controller {
     public static void runScheduling() {
         String selectedScheduling = view.jComboBox.getItemAt(view.jComboBox.getSelectedIndex());
 
+        model.getCompletedQueue().clear();
+
         String schedulingMethod = "You selected: " + selectedScheduling;
 
         List<input> queue = inputManage.getWaitingQueue();

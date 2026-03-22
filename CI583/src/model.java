@@ -14,19 +14,18 @@ public class model{
     }
 
     public static void roundRobin(List<input> queue) {
-        System.out.println("Round Robin in model is called");
-
+        //System.out.println("Round Robin in model is called");
         roundRobin.startEnrolment(queue);
     }
 
     public static void priority(List<input> queue) {
-        System.out.println("Priority in model is called");
+        //System.out.println("Priority in model is called");
 
         priority.startEnrolment(queue);
     }
 
     public static void mlfq(List<input> queue) {
-        System.out.println("MLFQ in model is called");
+        //System.out.println("MLFQ in model is called");
 
         mlfq.startEnrolment(queue);
     }

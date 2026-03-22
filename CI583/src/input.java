@@ -1,11 +1,11 @@
 public class input extends Thread{
 
     private String processID;
-    private int burstTime;
+    private long burstTime;
     private int processPriority;
 
     // Constructor
-    public input(String processID, int burstTime, int processPriority) {
+    public input(String processID, long burstTime, int processPriority) {
         this.processID = processID;
         this.burstTime = burstTime;
         this.processPriority = processPriority;
@@ -16,7 +16,7 @@ public class input extends Thread{
         return processID;
     }
 
-    public int getBurstTime() {
+    public long getBurstTime() {
         return burstTime;
     }
 
@@ -29,7 +29,7 @@ public class input extends Thread{
         this.processID = processID;
     }
 
-    public void setBurstTime(int burstTime) {
+    public void setBurstTime(long burstTime) {
         this.burstTime = burstTime;
     }
 

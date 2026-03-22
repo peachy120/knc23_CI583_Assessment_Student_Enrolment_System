@@ -7,23 +7,17 @@ public class priority{
     public static void startEnrolment(List<input> queue) {
         System.out.println("Start Enrolment in Priority is called");
 
-        if (queue.isEmpty()) {
-            System.out.println("Waiting Queue is empty");
-        }
-
-        for (int i = 0; i < queue.size(); i++) {
-            input value = queue.get(i);
-
-            int priority = value.getPriority();
-
-            System.out.println(value);
-            System.out.println(priority);
-
-        }
     }
 
-//    public Comparator<Integer> comparator = (s1, s2) -> {
-//
-//    };
+    public Comparator<Integer> comparator = (s1, s2) -> {
+        if (s1 > s2) {
+            return s1;
+        } else if(s2 > s1) {
+            return s2;
+        } else {
+            return s1;
+        }
+
+    };
 
 }
