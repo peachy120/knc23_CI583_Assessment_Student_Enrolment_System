@@ -9,6 +9,7 @@ public class view {
     static JLabel schedulingSelectedJLabel;
     static String[] schedulingOptions;
     static JComboBox<String> jComboBox;
+    static JLabel runningJLabel;
 
     public void main(String[] arg) {
 
@@ -64,6 +65,10 @@ public class view {
         });
         runJButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         jPanel.add(runJButton);
+
+        runningJLabel = new JLabel();
+        runningJLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jPanel.add(runningJLabel);
 
         jFrame.setVisible(true);
     }

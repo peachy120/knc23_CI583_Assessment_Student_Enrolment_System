@@ -7,7 +7,7 @@ public class priority{
     public static void startEnrolment(List<input> queue) {
         System.out.println("Start Enrolment in Priority is called");
 
-        Comparator<input> priorityComparator = Comparator.comparingInt(value -> value.getProcessPriority());
+        Comparator<input> priorityComparator = Comparator.comparingInt(value -> value.getProcessPriority()); // JavaSpring.net
         PriorityQueue<input> waitingQueue = new PriorityQueue<>(priorityComparator);
         waitingQueue.addAll(queue);
 
@@ -27,6 +27,7 @@ public class priority{
                 try {
                     Thread.sleep(20);
                     System.out.println(value + " " + thread.getState());
+                    view.runningJLabel.setText(value.getProcessID() + " " + value.getProcessPriority() + thread.getState());
                     model.addToCompletedQueue(value);
                 } catch (InterruptedException e) {
                     System.out.println("Thread interrupted: " + e.getMessage());

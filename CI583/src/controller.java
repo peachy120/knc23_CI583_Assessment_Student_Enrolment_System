@@ -81,12 +81,18 @@ public class controller {
             System.out.println("You selected " + selectedScheduling);
 
             model.priority(queue);
+
+            System.out.println(inputManage.getWaitingQueue());
+            System.out.println(model.getCompletedQueue());
         } else if (!queue.isEmpty() && selectedScheduling == view.schedulingOptions[2]) {
             view.schedulingSelectedJLabel.setText(schedulingMethod);
 
             System.out.println("You selected " + selectedScheduling);
 
             model.mlfq(queue);
+
+            System.out.println(inputManage.getWaitingQueue());
+            System.out.println(model.getCompletedQueue());
         } else {
             view.schedulingSelectedJLabel.setText("Upload a CSV file");
 

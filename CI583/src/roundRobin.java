@@ -27,10 +27,12 @@ public class roundRobin{
                     if (afterProcessBurstTime > 0) {
                         value.setBurstTime(afterProcessBurstTime);
                         System.out.println(value);
+                        view.runningJLabel.setText(value.getProcessID()  + " | " + value.getBurstTime());
                         queue.add(value);
                     } else {
                         model.addToCompletedQueue(value);
                         System.out.println(value + " " + thread.getState());
+                        view.runningJLabel.setText(value.getProcessID() + " | " + value.getBurstTime() + " is " + thread.getState());
                     }
 
                 } catch (InterruptedException e) {
@@ -39,9 +41,7 @@ public class roundRobin{
             } else {
                 model.addToCompletedQueue(value);
             }
-
         }
-
     }
 
     public void equeue() {
