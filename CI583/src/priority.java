@@ -16,6 +16,7 @@ public class priority{
         while (!waitingQueue.isEmpty()) {
             input value = waitingQueue.poll();
             System.out.println(value);
+            queue.removeFirst();
 
             Thread thread = new Thread(value);
             Thread.State currentValueState = thread.getState();
