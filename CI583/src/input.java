@@ -40,4 +40,13 @@ public class input extends Thread{
     public String toString() {
         return "Process ID: " + processID + " Burst Time: " + burstTime + " Priority: " + processPriority;
     }
+
+    @Override
+    public void run() {
+        try {
+            Thread.sleep(burstTime);
+        } catch (InterruptedException e) {
+            // interrupted by scheduler (quantum expired)
+        }
+    }
 }

@@ -4,7 +4,7 @@ import java.util.Queue;
 
 public class mlfq {
 
-    private static int quantum = 1000;
+    private static int quantum = 20;
 
     public static void startEnrolment(List<input> queue) {
         System.out.println("Start Enrolment in MLFQ is called");
@@ -14,156 +14,100 @@ public class mlfq {
 
         youngQueue.addAll(queue);
 
-//        System.out.println(youngQueue);
-//        System.out.println(oldQueue);
-
-//        while (!(youngQueue.isEmpty() && oldQueue.isEmpty())) {
-//
-//            while (!youngQueue.isEmpty()) {
-//                input value = youngQueue.poll();
-//                System.out.println(value);
-//                queue.removeFirst();
-//
-//                Thread thread = new Thread(value);
-//                Thread.State currentValueState = thread.getState();
-//                System.out.println(currentValueState);
-//
-//                thread.start();
-//
-//                if (currentValueState.equals(Thread.State.NEW)) {
-//                    try {
-//                        Thread.sleep(20);
-//                        System.out.println(value + " " + thread.getState());
-//
-//                        if (!(thread.getState().equals(Thread.State.TERMINATED))) {
-//                            oldQueue.add(value);
-//                            queue.addLast(value);
-//                        } else {
-//                            model.addToCompletedQueue(value);
-//                        }
-//
-//                    } catch (InterruptedException e) {
-//                        System.out.println("Thread interrupted: " + e.getMessage());
-//                    }
-//                } else {
-//                    model.addToCompletedQueue(value);
-//                }
-//            }
-//            System.out.println("Young Queue is empty" + youngQueue);
-//
-//            while (!oldQueue.isEmpty()) {
-//                input value = oldQueue.poll();
-//                System.out.println(value);
-//                queue.removeFirst();
-//
-//                Thread thread = new Thread(value);
-//                Thread.State currentValueState = thread.getState();
-//                System.out.println(currentValueState);
-//
-//                thread.start();
-//
-//                if (currentValueState.equals(Thread.State.NEW)) {
-//                    try {
-//                        Thread.sleep(20);
-//                        System.out.println(value + " " + thread.getState());
-//
-//                        if (!(thread.getState().equals(Thread.State.TERMINATED))) {
-//                            youngQueue.add(value);
-//                            queue.addLast(value);
-//                        } else {
-//                            model.addToCompletedQueue(value);
-//                        }
-//
-//                    } catch (InterruptedException e) {
-//                        System.out.println("Thread interrupted: " + e.getMessage());
-//                    }
-//                } else {
-//                    model.addToCompletedQueue(value);
-//                }
-//            }
-//            System.out.println("Old Queue is empty" + oldQueue);
-//        }
-//        System.out.println("Both Lists are empty");
-//        System.out.println(youngQueue);
-//        System.out.println(oldQueue);
-
         while (!(youngQueue.isEmpty() && oldQueue.isEmpty())) {
 
             while (!youngQueue.isEmpty()) {
                 input value = youngQueue.poll();
                 System.out.println(value);
-                queue.removeFirst();
+                queue.remove(value);
 
                 Thread thread = new Thread(value);
-                Thread.State currentValueState = thread.getState();
-                System.out.println(currentValueState);
 
                 long currentValueBurstTime = value.getBurstTime();
 
                 thread.start();
 
-                if (currentValueState.equals(Thread.State.NEW)) {
-                    try {
-                        Thread.sleep(20);
+                try {
+                    Thread.sleep(quantum);
 
-                        long afterProcessBurstTime = currentValueBurstTime - quantum;
+                    Thread.State currentValueState = thread.getState();
 
-                        if (afterProcessBurstTime > 0) {
-                            value.setBurstTime(afterProcessBurstTime);
-                            System.out.println(value);
+                    long afterProcessBurstTime = currentValueBurstTime - quantum;
+                    value.setBurstTime(afterProcessBurstTime);
+
+                    if (!currentValueState.equals(Thread.State.TERMINATED)) {
+                        if (value.getBurstTime() > 0) {
+                            thread.interrupted();
+
                             oldQueue.add(value);
                             queue.addLast(value);
                         } else {
-                            model.addToCompletedQueue(value);
-                            System.out.println(value + " " + thread.getState());
-                            view.runningJLabel.setText(value.getProcessID() + " | " + value.getBurstTime() + " is " + thread.getState());
-                        }
+                            thread.join();
 
-                    } catch (InterruptedException e) {
-                        System.out.println("Thread interrupted: " + e.getMessage());
+                            System.out.println(value + " " + thread.getState());
+
+                            model.addToCompletedQueue(value);
+                        }
+                    } else {
+                        thread.join();
+
+                        System.out.println(value + " " + thread.getState());
+
+                        model.addToCompletedQueue(value);
                     }
-                } else {
-                    model.addToCompletedQueue(value);
+
+                } catch (InterruptedException e) {
+                    System.out.println("Thread interrupted: " + e.getMessage());
                 }
+
             }
             System.out.println("Young Queue is empty" + youngQueue);
 
             while (!oldQueue.isEmpty()) {
                 input value = oldQueue.poll();
                 System.out.println(value);
-                queue.removeFirst();
+                queue.remove(value);
 
                 Thread thread = new Thread(value);
-                Thread.State currentValueState = thread.getState();
-                System.out.println(currentValueState);
 
                 long currentValueBurstTime = value.getBurstTime();
 
                 thread.start();
 
-                if (currentValueState.equals(Thread.State.NEW)) {
-                    try {
-                        Thread.sleep(20);
+                try {
+                    Thread.sleep(20);
 
-                        long afterProcessBurstTime = currentValueBurstTime - quantum;
+                    Thread.State currentValueState = thread.getState();
 
-                        if (afterProcessBurstTime > 0) {
-                            value.setBurstTime(afterProcessBurstTime);
-                            System.out.println(value);
+                    long afterProcessBurstTime = currentValueBurstTime - quantum;
+                    value.setBurstTime(afterProcessBurstTime);
+
+                    if (!currentValueState.equals(Thread.State.TERMINATED)) {
+                        if (value.getBurstTime() > 0) {
+
+                            thread.interrupted();
+
                             youngQueue.add(value);
                             queue.addLast(value);
                         } else {
-                            model.addToCompletedQueue(value);
-                            System.out.println(value + " " + thread.getState());
-                            view.runningJLabel.setText(value.getProcessID() + " | " + value.getBurstTime() + " is " + thread.getState());
-                        }
+                            thread.join();
 
-                    } catch (InterruptedException e) {
-                        System.out.println("Thread interrupted: " + e.getMessage());
+                            System.out.println(value + " " + thread.getState());
+
+                            model.addToCompletedQueue(value);
+                        }
+                    } else {
+                        thread.join();
+
+                        System.out.println(value + " " + thread.getState());
+
+                        model.addToCompletedQueue(value);
                     }
-                } else {
-                    model.addToCompletedQueue(value);
+
+                } catch (InterruptedException e) {
+                    System.out.println("Thread interrupted: " + e.getMessage());
                 }
+
             }
             System.out.println("Old Queue is empty" + oldQueue);
         }
