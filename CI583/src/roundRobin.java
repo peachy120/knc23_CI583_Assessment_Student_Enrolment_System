@@ -42,7 +42,12 @@ public class roundRobin{
                         view.runningJLabel.setText(value.getProcessID() + " | " + value.getBurstTime() + " is " + thread.getState());
                     }
                 } else {
+
+                    thread.join();
+
                     model.addToCompletedQueue(value);
+                    System.out.println(value + " " + thread.getState());
+                    view.runningJLabel.setText(value.getProcessID() + " | " + value.getBurstTime() + " is " + thread.getState());
                 }
 
             } catch (InterruptedException e) {
