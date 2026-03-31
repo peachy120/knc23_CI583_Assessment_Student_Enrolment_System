@@ -9,6 +9,7 @@ public class roundRobin{
 
         while(!queue.isEmpty()) {
             input value = queue.removeFirst();  // Removes the first value from the queue
+            //input value = dequeue();
             System.out.println(value);
 
             Thread thread = new Thread(value);  // Creates a new Thread that runs in the code
@@ -32,7 +33,7 @@ public class roundRobin{
                         value.setBurstTime(afterProcessBurstTime);
                         System.out.println(value);
                         view.runningJLabel.setText(value.getProcessID()  + " | " + value.getBurstTime());
-                        queue.add(value);
+                        enqueue(value);
                     } else {
 
                         thread.join();
@@ -56,11 +57,12 @@ public class roundRobin{
         }
     }
 
-    public void equeue() {
-
+    public static void enqueue(input value) {
+        inputManage.addToWaitingQueue(value);
+        // System.out.println("In Enqueue method");
     }
 
-    public void dequeue() {
-
+    public static void dequeue() {
+        inputManage.getWaitingQueue().removeFirst();
     }
 }
