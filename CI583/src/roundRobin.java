@@ -2,7 +2,7 @@ import java.util.*;
 
 public class roundRobin{
 
-    private static int quantum = 20;  // Setting the quantum
+    private static int quantum = 1000;  // Setting the quantum
 
     public static void startEnrolment(List<input> queue) {
         System.out.println("Start Enrolment in Round Robin is called");
@@ -19,7 +19,8 @@ public class roundRobin{
             thread.start(); // Starts the thread and runs the run method in input class parallelly
 
             try {
-                Thread.sleep(quantum); // Put the to sleep to simulate the work process
+                //Thread.sleep(quantum); // Put the to sleep to simulate the work process
+                Thread.sleep(20);
 
                 Thread.State currentValueState = thread.getState(); // Getting the state of the current thread
 

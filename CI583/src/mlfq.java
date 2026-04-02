@@ -4,7 +4,7 @@ import java.util.Queue;
 
 public class mlfq {
 
-    private static int quantum = 20; // Setting the quantum
+    private static int quantum = 1000; // Setting the quantum
 
     public static void startEnrolment(List<input> queue) {
         System.out.println("Start Enrolment in MLFQ is called");
@@ -28,7 +28,8 @@ public class mlfq {
                 thread.start();  // Starts the thread and runs the run method in input class parallelly
 
                 try {
-                    Thread.sleep(quantum); // Put the to sleep to simulate the work process
+                    //Thread.sleep(quantum); // Put the to sleep to simulate the work process
+                    //Thread.sleep(20);
 
                     Thread.State currentValueState = thread.getState(); // Getting the state of the current thread
 
@@ -47,12 +48,16 @@ public class mlfq {
                         } else {
                             thread.join(); // Make sure to output the state as TERMINATED when the value has been fully process
 
+                            value.setBurstTime(0); // To prevent it showing negative numbers
+
                             System.out.println(value + " " + thread.getState());
 
                             model.addToCompletedQueue(value); // Adding values that have completed the process in to the completed queue in model class
                         }
                     } else {
                         thread.join(); // Make sure to output the state as TERMINATED when the value has been fully process
+
+                        value.setBurstTime(0); // To prevent it showing negative numbers
 
                         System.out.println(value + " " + thread.getState());
 
@@ -78,7 +83,8 @@ public class mlfq {
                 thread.start(); // Starts the thread and runs the run method in input class parallelly
 
                 try {
-                    Thread.sleep(20); // Put the to sleep to simulate the work process
+                    //Thread.sleep(quantum); // Put the to sleep to simulate the work process
+                    Thread.sleep(20);
 
                     Thread.State currentValueState = thread.getState(); // Getting the state of the current thread
 
@@ -97,12 +103,16 @@ public class mlfq {
                         } else {
                             thread.join(); // Make sure to output the state as TERMINATED when the value has been fully process
 
+                            value.setBurstTime(0); // To prevent it showing negative numbers
+
                             System.out.println(value + " " + thread.getState());
 
                             model.addToCompletedQueue(value); // Adding values that have completed the process in to the completed queue in model class
                         }
                     } else {
                         thread.join(); // Make sure to output the state as TERMINATED when the value has been fully process
+
+                        value.setBurstTime(0); // To prevent it showing negative numbers
 
                         System.out.println(value + " " + thread.getState());
 
