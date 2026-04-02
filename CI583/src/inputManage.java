@@ -11,15 +11,12 @@ public abstract class inputManage{
     }
 
     // Getter
+    // Getting the waitingQueue
     public static List<input> getWaitingQueue() {
         return waitingQueue;
     }
 
-    // Setter
-    public static void setWaitingQueue(List<input> waitingQueue) {
-        inputManage.waitingQueue = waitingQueue;
-    }
-
+    // Adding value into the waitingQueueso the queue can be pass as parameters in other classes
     public static void addToWaitingQueue(input value) {
         waitingQueue.add(value);
         //System.out.println(value);

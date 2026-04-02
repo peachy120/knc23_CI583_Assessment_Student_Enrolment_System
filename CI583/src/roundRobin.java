@@ -2,7 +2,7 @@ import java.util.*;
 
 public class roundRobin{
 
-    private static int quantum = 1000;
+    private static int quantum = 20;  // Setting the quantum
 
     public static void startEnrolment(List<input> queue) {
         System.out.println("Start Enrolment in Round Robin is called");
@@ -19,36 +19,37 @@ public class roundRobin{
             thread.start(); // Starts the thread and runs the run method in input class parallelly
 
             try {
-                Thread.sleep(quantum);
+                Thread.sleep(quantum); // Put the to sleep to simulate the work process
 
-                Thread.State currentValueState = thread.getState();
+                Thread.State currentValueState = thread.getState(); // Getting the state of the current thread
 
-                if (!currentValueState.equals(Thread.State.TERMINATED)) {
+                if (!currentValueState.equals(Thread.State.TERMINATED)) { // Checking whether the current state of the input value is not TERMINATED
 
-                    thread.interrupt();
+                    thread.interrupt(); // If a process is waiting for something, we wake it up
 
-                    long afterProcessBurstTime = currentValueBurstTime - quantum;
+                    long afterProcessBurstTime = currentValueBurstTime - quantum;   // Calculating the new burst time after the entering into the process
 
                     if (afterProcessBurstTime > 0) {
-                        value.setBurstTime(afterProcessBurstTime);
+                        value.setBurstTime(afterProcessBurstTime);  // Setting the current value burst time to afterProcessBurstTime as it has not been fully process yet
                         System.out.println(value);
-                        view.runningJLabel.setText(value.getProcessID()  + " | " + value.getBurstTime());
-                        enqueue(value);
+                        enqueue(value); // Inserting the value at the back of the queue so it can go into the process again
                     } else {
 
-                        thread.join();
+                        thread.join(); // Make sure to output the state as TERMINATED when the value has been fully process
 
-                        model.addToCompletedQueue(value);
+                        value.setBurstTime(0); // To prevent it showing negative numbers
+
+                        model.addToCompletedQueue(value); // Adding values that have completed the process in to the completed queue in model class
                         System.out.println(value + " " + thread.getState());
-                        view.runningJLabel.setText(value.getProcessID() + " | " + value.getBurstTime() + " is " + thread.getState());
                     }
                 } else {
 
-                    thread.join();
+                    thread.join(); // Make sure to output the state as TERMINATED when the value has been fully process
 
-                    model.addToCompletedQueue(value);
+                    value.setBurstTime(0); // To prevent it showing negative numbers
+
+                    model.addToCompletedQueue(value); // Adding values that have completed the process in to the completed queue in model class
                     System.out.println(value + " " + thread.getState());
-                    view.runningJLabel.setText(value.getProcessID() + " | " + value.getBurstTime() + " is " + thread.getState());
                 }
 
             } catch (InterruptedException e) {
@@ -58,7 +59,7 @@ public class roundRobin{
     }
 
     public static void enqueue(input value) {
-        inputManage.addToWaitingQueue(value);
+        inputManage.addToWaitingQueue(value); // Adding the value to the end of thw queue
         // System.out.println("In Enqueue method");
     }
 

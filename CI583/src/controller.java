@@ -12,8 +12,8 @@ import java.util.List;
 public class controller {
 
     public static void selectFile() {
-        JFileChooser jFileChooser = new JFileChooser();
-        jFileChooser.setFileFilter(new FileNameExtensionFilter("CSV files", "csv"));
+        JFileChooser jFileChooser = new JFileChooser(); // Allows for the interactive selection of a file
+        jFileChooser.setFileFilter(new FileNameExtensionFilter("CSV files", "csv")); // Make sure only csv file can be upload
 
         int fileSelected = jFileChooser.showOpenDialog(view.jFrame);
         if (fileSelected == JFileChooser.APPROVE_OPTION) {

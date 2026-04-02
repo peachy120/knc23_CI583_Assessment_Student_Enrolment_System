@@ -16,30 +16,29 @@ public class priority{
         System.out.println(waitingQueue);
 
         while (!waitingQueue.isEmpty()) {
-            input value = waitingQueue.poll();
+            input value = waitingQueue.poll(); // Getting the first element by returning and removing it
             System.out.println(value);
-            queue.remove(value);
+            queue.remove(value); // This is just for testing part to make sure the queue in inputManage has the same element
 
-            Thread thread = new Thread(value);
+            Thread thread = new Thread(value);  // Creates a new Thread that runs in the code
 
-            thread.start();
+            thread.start(); // Starts the thread and runs the run method in input class parallelly
 
             try {
-                Thread.sleep(quantum);
+                Thread.sleep(quantum); // Put the to sleep to simulate the work process
 
-                Thread.State currentValueState = thread.getState();
+                Thread.State currentValueState = thread.getState(); // Getting the state of the current thread
 
-                if (!currentValueState.equals(Thread.State.TERMINATED)) {
+                if (!currentValueState.equals(Thread.State.TERMINATED)) { // Checking whether the current state of the input value is not TERMINATED
 
-                    thread.interrupt();
+                    thread.interrupt(); // If a process is waiting for something, we wake it up
 
-                    thread.join();
+                    thread.join(); // Make sure to output the state as TERMINATED when the value has been fully process
 
                     System.out.println(value + " " + thread.getState());
-                    view.runningJLabel.setText(value.getProcessID() + " " + value.getProcessPriority() + thread.getState());
-                    model.addToCompletedQueue(value);
+                    model.addToCompletedQueue(value); // Adding values that have completed the process in to the completed queue in model class
                 } else {
-                    model.addToCompletedQueue(value);
+                    model.addToCompletedQueue(value); // Adding values that have completed the process in to the completed queue in model class
                 }
             } catch (InterruptedException e) {
                 System.out.println("Thread interrupted: " + e.getMessage());
