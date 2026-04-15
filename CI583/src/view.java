@@ -19,7 +19,7 @@ public class view {
         JPanel jPanel = new JPanel(); // Creating a JPanel
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
 
-        jFrame.add(jPanel); // Adding the JFrame into the JPanel
+        jFrame.add(jPanel); // Adding the JPanel into the JFrame
 
         JLabel titleJLabel = new JLabel("CI583 Student Enrolment System"); // Creating a JLabel to show the name of the system
         titleJLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Setting the alignment of the JLabel to CENTER

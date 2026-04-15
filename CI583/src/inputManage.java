@@ -21,6 +21,4 @@ public abstract class inputManage{
         waitingQueue.add(value);
         //System.out.println(value);
     }
-
-
 }
